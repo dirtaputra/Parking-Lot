@@ -6,6 +6,7 @@ import {
   GetListbyColorParkingLotDto,
 } from './dto/parking-lot.dto';
 import * as moment from 'moment';
+import { isTemplateElement } from '@babel/types';
 
 export class Master {
   max_capacity: 20;
@@ -16,6 +17,7 @@ export class ParkingLotService {
   // initiate master data
   readonly maxCapacity = 5;
   readonly parking = [];
+  readonly listOfCar = [];
 
   async registration(registration: RegistrationParkingLotDto) {
     // destructure data
@@ -85,8 +87,24 @@ export class ParkingLotService {
   }
 
   async getList(getListbyColorParkingLotDto: GetListbyColorParkingLotDto) {
+    // destructure data
+    const parking = this.parking;
+    let listOfCar = this.listOfCar;
+    const warna = getListbyColorParkingLotDto.warna;
+
+    // set array to null
+    listOfCar = [];
+
+    // filter array by warna
+    let filteredArray = parking.filter(function(item) {
+      if (item.warna === warna) {
+        // push plat nomor to array
+        return listOfCar.push(item.plat_nomor);
+      }
+    });
+
     return {
-      plat_nomor: ['B 123 34', 'B 123 35', 'B 123 39'],
+      plat_nomor: listOfCar,
     };
   }
 
