@@ -73,8 +73,14 @@ export class ParkingLotService {
   }
 
   async getTotal(getTotalByTypeParkingLotDto: GetTotalByTypeParkingLotDto) {
+    // destructure data
+    const parking = this.parking;
+
+    const count = parking.filter(
+      item => item.tipe === getTotalByTypeParkingLotDto.tipe,
+    ).length;
     return {
-      jumlah_kendaraan: 1,
+      jumlah_kendaraan: count,
     };
   }
 
