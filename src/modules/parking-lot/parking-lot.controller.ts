@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { ParkingLotService } from './parking-lot.service';
 import {
   RegistrationParkingLotDto,
@@ -37,5 +37,10 @@ export class ParkingLotController {
     @Body() getListbyColorParkingLotDto: GetListbyColorParkingLotDto,
   ) {
     return await this.parkingLotService.getList(getListbyColorParkingLotDto);
+  }
+
+  @Get('/All')
+  async getAll() {
+    return await this.parkingLotService.getAll();
   }
 }
