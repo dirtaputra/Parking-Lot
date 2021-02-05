@@ -17,21 +17,21 @@ export class ParkingLotService {
       warna: 'Hitam',
       tipe: 'MPV',
       parking_lot: 'A11',
-      tanggal_masuk: '2021-02-06 05:20',
+      tanggal_masuk: '2021-02-06 04:20',
     },
     {
       plat_nomor: 'N 2 AB',
       warna: 'Hitam',
       tipe: 'MPV',
       parking_lot: 'A21',
-      tanggal_masuk: '2021-02-06 05:20',
+      tanggal_masuk: '2021-02-06 04:20',
     },
     {
       plat_nomor: 'N 3 AB',
       warna: 'Hitam',
       tipe: 'SUV',
       parking_lot: 'A31',
-      tanggal_masuk: '2021-02-06 05:20',
+      tanggal_masuk: '2021-02-06 04:20',
     },
     {
       plat_nomor: 'N 4 AB',
@@ -49,6 +49,19 @@ export class ParkingLotService {
     // destructure data
     let parking = this.parking;
     let maxCapacity = this.maxCapacity;
+
+    // check if nomor kendaraan is exist in parking area
+    const data: any = parking.filter(function(item) {
+      return item.plat_nomor === registration.plat_nomor;
+    });
+
+    if (data.length != 0) {
+      return {
+        success: false,
+        message:
+          'Nomor Kendaraan Sudah Terdaftar, Periksa Kembali Nomor Kendaraan Tersebut',
+      };
+    }
 
     // get parking lot
     const parking_lot = await this.generateParkingLot();
