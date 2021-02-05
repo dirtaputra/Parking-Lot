@@ -6,18 +6,15 @@ import {
   GetListbyColorParkingLotDto,
 } from './dto/parking-lot.dto';
 import * as moment from 'moment';
-import { isTemplateElement } from '@babel/types';
 
-export class Master {
-  max_capacity: 20;
-  parking_area: [];
-}
 @Injectable()
 export class ParkingLotService {
   // initiate master data
   readonly maxCapacity = 5;
   readonly parking = [];
   readonly listOfCar = [];
+  readonly suvCharge = 25000;
+  readonly mpvCharge = 35000;
 
   async registration(registration: RegistrationParkingLotDto) {
     // destructure data
@@ -66,11 +63,66 @@ export class ParkingLotService {
   }
 
   async checkout(checkOutParkingLotDto: CheckOutParkingLotDto) {
+    // destructure data
+    const parking: any = this.parking;
+
+    // get data by nomor kendaraan
+    const data: any = parking.filter(function(item) {
+      return item.plat_nomor === checkOutParkingLotDto.plat_nomor;
+    });
+
+    console.log(data.length);
+    // check data is exist
+    if (data.length == 0) {
+      return {
+        success: false,
+        message: 'Nomor Kendaraan Tidak Terdaftar',
+      };
+    }
+    // remove data from parking area
+    parking.filter(function(value, index, arr) {
+      if (value.plat_nomor === checkOutParkingLotDto.plat_nomor) {
+        parking.splice(index, 1);
+      }
+    });
+
+    const getCharge = await this.getCharge(data[0].tipe, data[0].tanggal_masuk);
     return {
-      plat_nomor: 'B 123 34',
-      tanggal_masuk: '2019-03-21 10:00',
-      tanggal_keluar: '2019-03-21 15:00',
-      jumlah_bayar: '45000',
+      plat_nomor: data.plat_nomor,
+      tanggal_masuk: data.tanggal_masuk,
+      tanggal_keluar: getCharge.date_checkout,
+      jumlah_bayar: getCharge.charge,
+    };
+  }
+
+  async getCharge(type: string, dateRegistration: string) {
+    const now = moment(new Date()).format('YYYY-MM-DD HH:mm');
+
+    let duration = Math.ceil(
+      moment
+        .duration(
+          moment(now).diff(moment(dateRegistration, 'YYYY-MM-DD HH:mm')),
+        )
+        .asHours(),
+    );
+    console.log(now);
+    console.log(dateRegistration);
+    console.log(duration);
+
+    let charge;
+    if (duration == 1 || duration < 1) {
+      charge =
+        type === 'SUV' ? (charge = this.suvCharge) : (charge = this.mpvCharge);
+    } else {
+      charge =
+        type === 'SUV'
+          ? (charge = this.suvCharge + 0.2 * this.suvCharge * (duration - 1))
+          : (charge = this.mpvCharge + 0.2 * this.mpvCharge * (duration - 1));
+    }
+    console.log(charge);
+    return {
+      date_checkout: now,
+      charge: charge,
     };
   }
 
