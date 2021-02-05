@@ -113,7 +113,6 @@ export class ParkingLotService {
       return item.plat_nomor === checkOutParkingLotDto.plat_nomor;
     });
 
-    console.log(data.length);
     // check data is exist
     if (data.length == 0) {
       return {
@@ -138,8 +137,12 @@ export class ParkingLotService {
   }
 
   async getCharge(type: string, dateRegistration: string) {
+    // define variable
+    let charge;
+
     const now = moment(new Date()).format('YYYY-MM-DD HH:mm');
 
+    // count duration
     let duration = Math.ceil(
       moment
         .duration(
@@ -147,11 +150,8 @@ export class ParkingLotService {
         )
         .asHours(),
     );
-    console.log(now);
-    console.log(dateRegistration);
-    console.log(duration);
 
-    let charge;
+    // count charge
     if (duration == 1 || duration < 1) {
       charge =
         type === 'SUV' ? (charge = this.suvCharge) : (charge = this.mpvCharge);
@@ -161,7 +161,6 @@ export class ParkingLotService {
           ? (charge = this.suvCharge + 0.2 * this.suvCharge * (duration - 1))
           : (charge = this.mpvCharge + 0.2 * this.mpvCharge * (duration - 1));
     }
-    console.log(charge);
     return {
       date_checkout: now,
       charge: charge,
@@ -172,6 +171,7 @@ export class ParkingLotService {
     // destructure data
     const parking = this.parking;
 
+    // count by type
     const count = parking.filter(
       item => item.tipe === getTotalByTypeParkingLotDto.tipe,
     ).length;
