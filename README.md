@@ -1,7 +1,7 @@
 ## Description
 
-```bash
-aya adalah pemilik tempat parkir khusus Mobil yang dapat menampung hingga sebanyak ‘n’ mobil. Tempat parkir mobil ini memiliki kapasitas tampung(lot) sebanyak ‘n’. Setiap mobil yang masuk akan dicatat nomor plat kendaraan, warna, tipe mobil (SUV/MPV),Tanggal masuk (degenerate otomatis oleh system). Sistem akan mengeluarkan tiket dan pemilik kendaraan akan mendapatkan tiket yang berisi data Nomor Kendaraan, dan Nomor Parkir Lot (tempat tampung).
+```
+saya adalah pemilik tempat parkir khusus Mobil yang dapat menampung hingga sebanyak ‘n’ mobil. Tempat parkir mobil ini memiliki kapasitas tampung(lot) sebanyak ‘n’. Setiap mobil yang masuk akan dicatat nomor plat kendaraan, warna, tipe mobil (SUV/MPV),Tanggal masuk (degenerate otomatis oleh system). Sistem akan mengeluarkan tiket dan pemilik kendaraan akan mendapatkan tiket yang berisi data Nomor Kendaraan, dan Nomor Parkir Lot (tempat tampung).
 
 Beberapa validasi untuk sistem ini adalah:
 1. Sistem Tidak dapat meregistrasikan kendaraan apabila nomor kendaraan sama dengan kendaraan yang sudah ada di tempat parkir.
