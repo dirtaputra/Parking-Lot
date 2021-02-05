@@ -17,26 +17,56 @@ export class ParkingLotController {
   async registration(
     @Body() registrationParkingLotDto: RegistrationParkingLotDto,
   ) {
-    return await this.parkingLotService.registration(registrationParkingLotDto);
+    try {
+      return await this.parkingLotService.registration(
+        registrationParkingLotDto,
+      );
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
   }
 
   @Post('/checkout')
   async checkout(@Body() checkOutParkingLotDto: CheckOutParkingLotDto) {
-    return await this.parkingLotService.checkout(checkOutParkingLotDto);
+    try {
+      return await this.parkingLotService.checkout(checkOutParkingLotDto);
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
   }
 
   @Post('/total')
   async getTotalType(
     @Body() getTotalByTypeParkingLotDto: GetTotalByTypeParkingLotDto,
   ) {
-    return await this.parkingLotService.getTotal(getTotalByTypeParkingLotDto);
+    try {
+      return await this.parkingLotService.getTotal(getTotalByTypeParkingLotDto);
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
   }
 
   @Post('/list')
   async getListByColor(
     @Body() getListbyColorParkingLotDto: GetListbyColorParkingLotDto,
   ) {
-    return await this.parkingLotService.getList(getListbyColorParkingLotDto);
+    try {
+      return await this.parkingLotService.getList(getListbyColorParkingLotDto);
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
   }
 
   @Get('/All')
