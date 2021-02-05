@@ -11,7 +11,36 @@ import * as moment from 'moment';
 export class ParkingLotService {
   // initiate master data
   readonly maxCapacity = 5;
-  readonly parking = [];
+  readonly parking = [
+    {
+      plat_nomor: 'N 1 AB',
+      warna: 'Hitam',
+      tipe: 'MPV',
+      parking_lot: 'A11',
+      tanggal_masuk: '2021-02-06 05:20',
+    },
+    {
+      plat_nomor: 'N 2 AB',
+      warna: 'Hitam',
+      tipe: 'MPV',
+      parking_lot: 'A21',
+      tanggal_masuk: '2021-02-06 05:20',
+    },
+    {
+      plat_nomor: 'N 3 AB',
+      warna: 'Hitam',
+      tipe: 'SUV',
+      parking_lot: 'A31',
+      tanggal_masuk: '2021-02-06 05:20',
+    },
+    {
+      plat_nomor: 'N 4 AB',
+      warna: 'Merah',
+      tipe: 'SUV',
+      parking_lot: 'A41',
+      tanggal_masuk: '2021-02-06 05:21',
+    },
+  ];
   readonly listOfCar = [];
   readonly suvCharge = 25000;
   readonly mpvCharge = 35000;
